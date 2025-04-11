@@ -92,7 +92,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-st.title("📈 Global Stock‑Market Indices (near real‑time)")
+st.markdown("### 📈 Global Stock‑Market")
 
 cols = st.columns(len(INDEXES))
 
@@ -117,7 +117,12 @@ for col, (name, cfg) in zip(cols, INDEXES.items()):
     )
 
     # metric (label left blank to save vertical space)
-    col.metric(label="", value=f"{last_price:,.2f}", delta=f"{delta_pct:+.2f}%")
+    col.metric(
+        label="\u00A0",  # NBSP → satisfaz o Streamlit, mas não aparece
+        value=f"{last_price:,.2f}",
+        delta=f"{delta_pct:+.2f}%"
+    )
+    #col.metric(label="", value=f"{last_price:,.2f}", delta=f"{delta_pct:+.2f}%")
 
     # market status
     status = "🟢 **Open**" if is_market_open(cfg["calendar"]) else "🔴 **Closed**"
